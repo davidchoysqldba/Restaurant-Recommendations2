@@ -1,0 +1,13 @@
+# at remote server
+mysqldump -u root -p --no-data restaurantdb restaurant_inbox > restaurantdb_restaurant_inbox_schema.sql
+
+mysqldump -u root -p --no-create-info restaurantdb restaurant_inbox > restaurantdb_restaurant_inbox_data.sql
+
+# copy to another machine
+scp -r vagrant@192.168.1.221:restaurantdb_restaurant_inbox_schema.sql ./restaurantdb_restaurant_inbox_schema.sql
+
+scp -r vagrant@192.168.1.221:restaurantdb_restaurant_inbox_data.sql ./restaurantdb_restaurant_inbox_data.sql
+
+# load in data
+mysql -u root -p --database=restaurant_inbox --table=restaurant_inbox < restaurantdb_restaurant_inbox_data.sql 
+
